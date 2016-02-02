@@ -1,113 +1,140 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
-using System.Collections;
-using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
-	public static GameManager Instance = null;
+    public static GameManager Instance = null;
 
-	private float health = 100;
-	private float maxHealth = 100f;
-	public int Score;
-	public int Wave;
+    private float health = 100;
+    private float maxHealth = 100f;
+    public int Score;
+    public int Wave;
 
-	public AudioSource Music;
-	public AudioSource SoundEffects;
+    public AudioSource Music;
+    public AudioSource SoundEffects;
 
-	public AudioClip MainMenuMusic;
-	public AudioClip GameMusic;
-	public AudioClip GameOverMusic;
+    public float MusicVolume;
+    public float SFXVolume;
 
-	void Awake ()
-	{
-		
+    public AudioClip MainMenuMusic;
+    public AudioClip GameMusic;
+    public AudioClip GameOverMusic;
 
+    public AudioClip[] BugDeathSounds;
+    public AudioClip[] ProjectileSFX;
 
-	}
-	// Use this for initialization
-	void Start ()
-	{
-		if (Instance == null) {
-			Instance = this;
-		} else if (Instance != this) {
-			Destroy (gameObject);
-		}
-		DontDestroyOnLoad (gameObject);
+    void Awake()
+    {
 
 
-	}
-	
-	// Update is called once per frame
-	void Update ()
-	{
 
-		health = Mathf.Clamp (health, 0f, maxHealth);
-		CheckGameOver (health);
-		if (SceneManager.GetActiveScene ().name == "GameOver") {
+    }
+    // Use this for initialization
+    void Start()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+        DontDestroyOnLoad(gameObject);
 
-		}
-	}
 
-	public float GetHealth ()
-	{
-		return health;
-	}
+    }
 
-	public void SetHealth (float h)
-	{
-		health = h;
-	}
+    // Update is called once per frame
+    void Update()
+    {
 
-	public float GetMaxHealth ()
-	{
-		return maxHealth;
-	}
+        health = Mathf.Clamp(health, 0f, maxHealth);
+        CheckGameOver(health);
+        SetVolume();
+    }
 
-	public void GetMaxHealth (float mh)
-	{
-		maxHealth = mh;
-	}
+    void SetVolume()
+    {
+        Music.volume = MusicVolume;
+        SoundEffects.volume = SFXVolume;
+    }
 
-	public void LoadMainMenu ()
-	{
-		SceneManager.LoadScene ("MainMenu");
-	}
+    public float GetHealth()
+    {
+        return health;
+    }
 
-	public void LoadGameLevel ()
-	{
-		this.GetComponent<Spawn> ().enabled = true;
-		SceneManager.LoadScene ("GameLevel");
-	}
+    public void SetHealth(float h)
+    {
+        health = h;
+    }
 
-	public void QuitGame ()
-	{
-		Application.Quit ();
-	}
+    public float GetMaxHealth()
+    {
+        return maxHealth;
+    }
 
-	void CheckGameOver (float h)
-	{
-		if (h <= 0) {
-			SceneManager.LoadScene ("GameOver");
-		}
-	}
+    public void GetMaxHealth(float mh)
+    {
+        maxHealth = mh;
+    }
 
-	void OnLevelWasLoaded (int level)
-	{
-		switch (level) {
-		case 0:
-			Music.clip = MainMenuMusic;
-			Music.Play ();
-			break;
-		case 1:
-			Music.clip = GameMusic;
-			Music.Play ();
-			break;
-		case 2:
-			Music.clip = GameOverMusic;
-			Music.Play ();
-			break;
-		}
-	}
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void LoadGameLevel()
+    {
+        this.GetComponent<Spawn>().enabled = true;
+        SceneManager.LoadScene("GameLevel");
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    void CheckGameOver(float h)
+    {
+        if (h <= 0)
+        {
+            SceneManager.LoadScene("GameOver");
+        }
+    }
+
+    public void BugDeathSFX()
+    {
+        SoundEffects.PlayOneShot(BugDeathSounds[Random.Range(0, BugDeathSounds.Length)]);
+        return;
+    }
+
+    public void PlaySFX(int sfx)
+    {
+        SoundEffects.PlayOneShot(ProjectileSFX[sfx]);
+        return;
+    }
+
+    void OnLevelWasLoaded(int level)
+    {
+        switch (level)
+        {
+            case 0:
+                Music.clip = MainMenuMusic;
+                Music.Play();
+                Music.loop = true;
+                break;
+            case 1:
+                Music.clip = GameMusic;
+                Music.Play();
+                Music.loop = true;
+                break;
+            case 2:
+                Music.clip = GameOverMusic;
+                Music.Play();
+                Music.loop = true;
+                break;
+        }
+    }
 }

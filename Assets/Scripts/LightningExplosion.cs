@@ -9,7 +9,8 @@ public class LightningExplosion : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		StartCoroutine (Explode ());
+        GameManager.Instance.PlaySFX(3);
+        StartCoroutine (Explode ());
 	}
 
 	IEnumerator Explode ()
@@ -20,34 +21,26 @@ public class LightningExplosion : MonoBehaviour
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-		if (other.gameObject.tag == "EnemyTwo" || other.gameObject.tag == "EnemyThree") {
-			other.GetComponent<AudioSource> ().Play ();
-			other.GetComponent<Enemy> ().ableToMove = false;
-			other.GetComponentInChildren<SpriteRenderer> ().color = new Color (84 / 255, 56 / 255, 65 / 255);
-			Camera.main.GetComponent<Spawn> ().BugKilled ();
-			Destroy (other.gameObject, other.GetComponent<AudioSource> ().clip.length);
-		}	
-	}
+        Death(other);
+    }
 
 	void OnTriggerExit2D (Collider2D other)
 	{
-		if (other.gameObject.tag == "EnemyTwo" || other.gameObject.tag == "EnemyThree") {
-			other.GetComponent<AudioSource> ().Play ();
-			other.GetComponent<Enemy> ().ableToMove = false;
-			other.GetComponentInChildren<SpriteRenderer> ().color = new Color (84 / 255, 56 / 255, 65 / 255);
-			Camera.main.GetComponent<Spawn> ().BugKilled ();
-			Destroy (other.gameObject, other.GetComponent<AudioSource> ().clip.length);
-		}	
-	}
+        Death(other);
+    }
 
 	void OnTriggerStay2D (Collider2D other)
 	{
-		if (other.gameObject.tag == "EnemyTwo" || other.gameObject.tag == "EnemyThree") {
-			other.GetComponent<AudioSource> ().Play ();
-			other.GetComponent<Enemy> ().ableToMove = false;
-			other.GetComponentInChildren<SpriteRenderer> ().color = new Color (84 / 255, 56 / 255, 65 / 255);
-			Camera.main.GetComponent<Spawn> ().BugKilled ();
-			Destroy (other.gameObject, other.GetComponent<AudioSource> ().clip.length);
-		}	
+        Death(other);	
 	}
+
+    void Death(Collider2D other)
+    {
+        if (other.gameObject.tag == "EnemyTwo" || other.gameObject.tag == "EnemyThree")
+        {
+            GameManager.Instance.BugDeathSFX();
+            Camera.main.GetComponent<Spawn>().BugKilled();
+            Destroy(other.gameObject);
+        }
+    }
 }
