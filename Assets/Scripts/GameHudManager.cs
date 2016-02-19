@@ -13,9 +13,7 @@ public class GameHudManager : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-		if (gm == null) {
-			gm = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GameManager> ();
-		}
+		gm = GameManager.Instance;
 	}
 	
 	// Update is called once per frame

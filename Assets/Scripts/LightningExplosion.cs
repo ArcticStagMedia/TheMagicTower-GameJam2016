@@ -9,8 +9,8 @@ public class LightningExplosion : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-        GameManager.Instance.PlaySFX(3);
-        StartCoroutine (Explode ());
+		GameManager.Instance.audioManager.PlaySFX (3);
+		StartCoroutine (Explode ());
 	}
 
 	IEnumerator Explode ()
@@ -21,26 +21,25 @@ public class LightningExplosion : MonoBehaviour
 
 	void OnTriggerEnter2D (Collider2D other)
 	{
-        Death(other);
-    }
+		Death (other);
+	}
 
 	void OnTriggerExit2D (Collider2D other)
 	{
-        Death(other);
-    }
+		Death (other);
+	}
 
 	void OnTriggerStay2D (Collider2D other)
 	{
-        Death(other);	
+		Death (other);	
 	}
 
-    void Death(Collider2D other)
-    {
-        if (other.gameObject.tag == "EnemyTwo" || other.gameObject.tag == "EnemyThree")
-        {
-            GameManager.Instance.BugDeathSFX();
-            Camera.main.GetComponent<Spawn>().BugKilled();
-            Destroy(other.gameObject);
-        }
-    }
+	void Death (Collider2D other)
+	{
+		if (other.gameObject.tag == "EnemyTwo" || other.gameObject.tag == "EnemyThree") {
+			GameManager.Instance.audioManager.BugDeathSFX ();
+			Camera.main.GetComponent<Spawn> ().BugKilled ();
+			Destroy (other.gameObject);
+		}
+	}
 }

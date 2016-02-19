@@ -11,8 +11,8 @@ public class LightningProjectileMovement : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-        GameManager.Instance.PlaySFX(2);
-    }
+		GameManager.Instance.audioManager.PlaySFX (2);
+	}
 
 	// Update is called once per frame
 	void Update ()
@@ -24,8 +24,8 @@ public class LightningProjectileMovement : MonoBehaviour
 	{
 		if (other.gameObject.tag == "EnemyTwo" || other.gameObject.tag == "EnemyThree") {
 			Camera.main.GetComponent<Spawn> ().BugKilled ();
-            GameManager.Instance.BugDeathSFX();
-            Destroy (other.gameObject);
+			GameManager.Instance.audioManager.BugDeathSFX ();
+			Destroy (other.gameObject);
 			GameManager.Instance.Score++;
 			Instantiate (LightningExplosions, transform.position, transform.rotation);
 			Destroy (this.gameObject);

@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections;
 
 public class MainMenuUIManager : MonoBehaviour
 {
 
-	public Canvas MM;
-	public Canvas OP;
+	public GameObject MM;
+	public GameObject OP;
 
 	// Use this for initialization
 	void Start ()
@@ -23,19 +24,19 @@ public class MainMenuUIManager : MonoBehaviour
 
 	public void Back ()
 	{
-		MM.gameObject.SetActive (true);
-		OP.gameObject.SetActive (false);
+		MM.SetActive (true);
+		OP.SetActive (false);
 	}
 
 	public void Options ()
 	{
-		OP.gameObject.SetActive (true);
-		MM.gameObject.SetActive (false);
+		OP.SetActive (true);
+		MM.SetActive (false);
 	}
 
 	public void PlayGame ()
 	{
-		SceneManager.LoadScene ("GameLevel");
+		Invoke ("LoadLevel", 0.5f);
 	}
 
 	public void ExitGame ()
@@ -48,6 +49,12 @@ public class MainMenuUIManager : MonoBehaviour
 		if (level == 0) {
 			
 		}	
+	}
+
+	public void LoadLevel ()
+	{
+		Debug.Log ("Invoking LoadLevel");
+		SceneManager.LoadScene ("GameLevel");
 	}
 
 }
