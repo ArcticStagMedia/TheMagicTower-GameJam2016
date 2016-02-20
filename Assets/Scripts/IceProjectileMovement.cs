@@ -10,8 +10,8 @@ public class IceProjectileMovement : MonoBehaviour
 	// Use this for initialization
 	void Start ()
 	{
-        GameManager.Instance.PlaySFX(1);
-    }
+		GameManager.Instance.audioManager.PlaySFX (1);
+	}
 
 	// Update is called once per frame
 	void Update ()
@@ -22,8 +22,8 @@ public class IceProjectileMovement : MonoBehaviour
 	void OnTriggerEnter2D (Collider2D other)
 	{
 		if (other.gameObject.tag == "EnemyOne" || other.gameObject.tag == "EnemyTwo") {
-            GameManager.Instance.BugDeathSFX();
-            Camera.main.GetComponent<Spawn> ().BugKilled ();
+			GameManager.Instance.audioManager.BugDeathSFX ();
+			Camera.main.GetComponent<Spawn> ().BugKilled ();
 			Destroy (other.gameObject);
 			GameManager.Instance.Score++;
 		}

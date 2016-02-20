@@ -26,7 +26,7 @@ public class Tower : MonoBehaviour
 	void Start ()
 	{
 		if (gameManager == null) {
-			gameManager = GameObject.FindGameObjectWithTag ("GameManager").GetComponent<GameManager> ();
+			gameManager = GameManager.Instance;
 		}
 		CurrentHealth = gameManager.GetHealth ();
 	}

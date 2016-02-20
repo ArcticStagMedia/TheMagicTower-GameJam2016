@@ -41,7 +41,6 @@ public class Spawn : MonoBehaviour
 
 		maxToSpawn = spawnNumber * thisWave;
 		enemiesAlive = Mathf.Clamp (enemiesAlive, 0, maxToSpawn);
-		print (enemiesAlive + " " + BugsKilled);
 	}
 
 	IEnumerator Wave ()
