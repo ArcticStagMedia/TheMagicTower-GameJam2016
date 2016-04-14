@@ -55,6 +55,11 @@ public class GameManager: Object
 		GameManager.instance = null;
 	}
 
+	void Start ()
+	{
+
+	}
+
 	// Update is called once per frame
 	void Update ()
 	{

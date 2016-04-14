@@ -18,20 +18,21 @@ public class AudioManager : MonoBehaviour
 	public AudioClip[] ProjectileSFX;
 
 	// Use this for initialization
-	void Start ()
+	void Awake ()
 	{
-		if (GameManager.Instance.audioManager != this) {
-			Destroy (this);
-		} else if (GameManager.Instance.audioManager == null) {
+		if (GameManager.Instance.audioManager == null) {
 			GameManager.Instance.audioManager = this;
 			DontDestroyOnLoad (this.gameObject);
+		} else if (GameManager.Instance.audioManager != this) {
+			Destroy (this);
 		}
+
 	}
 	
 	// Update is called once per frame
 	void Update ()
 	{
-	
+		SetVolume ();
 	}
 
 	void SetVolume ()

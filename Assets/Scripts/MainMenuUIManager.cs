@@ -8,13 +8,15 @@ public class MainMenuUIManager : MonoBehaviour
 
 	public GameObject MM;
 	public GameObject OP;
+	GameManager GM;
 
 	// Use this for initialization
 	void Start ()
 	{
-	
+		GM = GameManager.Instance;
+		Debug.Log (GM.audioManager);
 	}
-	
+
 	// Update is called once per frame
 	void Update ()
 	{
